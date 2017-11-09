@@ -46,16 +46,17 @@ export default class Game extends Component {
 
     onGuess(event) {
         event.preventDefault();
+        let userGuess = event.target.userGuess.value;
         this.setState({
-            guess: [...this.state.guess, event.target.userGuess.value]
+            guess: [...this.state.guess, userGuess]
         });
         this.showFeedback(event.target.userGuess.value);
-        event.target.userGuess.value = '';
+        userGuess = '';
     }
 
     makeNewGame() {
         this.setState ({
-            feedback: '',
+            feedback: 'Make your guess!',
             guess: [],
             correctAnswer: Math.floor(Math.random() * 100) + 1
         })

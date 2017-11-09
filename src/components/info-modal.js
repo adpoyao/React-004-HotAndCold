@@ -15,7 +15,7 @@ export default function InfoModal(props) {
                         <li>3. You will <strong>get feedback</strong> on how close ("hot") or far ("cold") your guess is.</li>
                     </ul>
                     <p>So, Are you ready?</p>
-                    <a className="close" href="#">Got It!</a>
+                    <a className="close" href="#" onClick={()=>props.toggleModal()}>Got It!</a>
                 </div>
             </div>
         </div>
