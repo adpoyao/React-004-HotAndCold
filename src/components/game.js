@@ -14,6 +14,8 @@ export default class Game extends Component {
             guess: [10, 15, 25],
             correctAnswer: 5
         }
+        this.showFeedback = this.showFeedback.bind(this);
+        this.makeNewGame = this.makeNewGame.bind(this);
     }
 
     showFeedback(value){
@@ -38,18 +40,22 @@ export default class Game extends Component {
         else {
             feedback = "You got it!"
         }
+        this.setState({feedback})
+    }
 
-        
-
-        this.setState({
-            feedback
+    makeNewGame() {
+        this.setState ({
+            feedback: 'Make your guess NOW!',
+            count: 100, 
+            guess: [15, 20, 35],
+            correctAnswer: 5
         })
     }
 
     render() {
         return (
         <div>
-            <Header />
+            <Header newGame={this.makeNewGame}/>
             <GuessSection feedback={this.state.feedback} />
             <GuessCount count={this.state.count} />
             <GuessList guesses={this.state.guess} />
