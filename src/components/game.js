@@ -11,7 +11,7 @@ export default class Game extends Component {
         this.state = {
             feedback: 'Make your guess!',
             guess: [],
-            correctAnswer: 5
+            correctAnswer: Math.floor(Math.random() * 100) + 1
         }
         this.showFeedback = this.showFeedback.bind(this);
         this.onGuess = this.onGuess.bind(this);
@@ -20,9 +20,10 @@ export default class Game extends Component {
 
     showFeedback(value){
         let difference = value - this.state.correctAnswer;
-        difference = difference.isInteger();
+        difference = Math.abs(difference);
         let feedback;
-        if(difference = '') {
+        console.log('===difference', difference);
+        if(difference === '') {
             feedback = 'Make your guess!';
         }
         else if(difference >= 50) {
@@ -34,7 +35,7 @@ export default class Game extends Component {
         else if(difference >= 10) {
             feedback = "Warm"
         }
-        else if(difference >= 2) {
+        else if(difference >= 1) {
             feedback = "Super Hot!"
         }
         else {
@@ -47,15 +48,16 @@ export default class Game extends Component {
         event.preventDefault();
         this.setState({
             guess: [...this.state.guess, event.target.userGuess.value]
-        })
+        });
+        this.showFeedback(event.target.userGuess.value);
+        event.target.userGuess.value = '';
     }
 
     makeNewGame() {
         this.setState ({
             feedback: '',
-            count: 0, 
-            guess: [10, 15, 25],
-            correctAnswer: 5
+            guess: [],
+            correctAnswer: Math.floor(Math.random() * 100) + 1
         })
     }
 
