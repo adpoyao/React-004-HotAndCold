@@ -16,6 +16,36 @@ export default class Game extends Component {
         }
     }
 
+    showFeedback(value){
+        let difference = value - this.state.correctAnswer;
+        difference = difference.isInteger();
+        let feedback;
+        if(difference = '') {
+            feedback = 'Make your guess!';
+        }
+        else if(difference >= 50) {
+            feedback = "Ice Cold"
+        }
+        else if(difference >= 30) {
+            feedback = "Cold"
+        }
+        else if(difference >= 10) {
+            feedback = "Warm"
+        }
+        else if(difference >= 2) {
+            feedback = "Super Hot!"
+        }
+        else {
+            feedback = "You got it!"
+        }
+
+        
+
+        this.setState({
+            feedback
+        })
+    }
+
     render() {
         return (
         <div>
