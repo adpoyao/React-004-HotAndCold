@@ -10,11 +10,11 @@ export default class Game extends Component {
         super(props);
         this.state = {
             feedback: 'Make your guess!',
-            count: 3, 
-            guess: [10, 15, 25],
+            guess: [],
             correctAnswer: 5
         }
         this.showFeedback = this.showFeedback.bind(this);
+        this.onGuess = this.onGuess.bind(this);
         this.makeNewGame = this.makeNewGame.bind(this);
     }
 
@@ -43,11 +43,18 @@ export default class Game extends Component {
         this.setState({feedback})
     }
 
+    onGuess(event) {
+        event.preventDefault();
+        this.setState({
+            guess: [...this.state.guess, event.target.userGuess.value]
+        })
+    }
+
     makeNewGame() {
         this.setState ({
-            feedback: 'Make your guess NOW!',
-            count: 100, 
-            guess: [15, 20, 35],
+            feedback: '',
+            count: 0, 
+            guess: [10, 15, 25],
             correctAnswer: 5
         })
     }
@@ -56,8 +63,8 @@ export default class Game extends Component {
         return (
         <div>
             <Header newGame={this.makeNewGame}/>
-            <GuessSection feedback={this.state.feedback} />
-            <GuessCount count={this.state.count} />
+            <GuessSection onGuess={this.onGuess} feedback={this.state.feedback}/>
+            <GuessCount count={this.state.guess.length} />
             <GuessList guesses={this.state.guess} />
         </div>
     );
