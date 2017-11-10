@@ -11,18 +11,23 @@ export default class Game extends Component {
         this.state = {
             feedback: 'Make your guess!',
             guess: [],
-            correctAnswer: Math.floor(Math.random() * 100) + 1
+            correctAnswer: Math.floor(Math.random() * 100) + 1,
+            userInput: ''
         }
         this.showFeedback = this.showFeedback.bind(this);
         this.onGuess = this.onGuess.bind(this);
+        this.updateUserInput = this.updateUserInput.bind(this);
         this.makeNewGame = this.makeNewGame.bind(this);
     }
+
+    // componentDidMount(){
+    //     console.log('===componentDidMount', this.state);
+    // }
 
     showFeedback(value){
         let difference = value - this.state.correctAnswer;
         difference = Math.abs(difference);
         let feedback;
-        console.log('===difference', difference);
         if(difference === '') {
             feedback = 'Make your guess!';
         }
@@ -51,14 +56,21 @@ export default class Game extends Component {
             guess: [...this.state.guess, userGuess]
         });
         this.showFeedback(event.target.userGuess.value);
-        userGuess = '';
+        event.target.userGuess.value = '';
     }
 
     makeNewGame() {
         this.setState ({
             feedback: 'Make your guess!',
             guess: [],
-            correctAnswer: Math.floor(Math.random() * 100) + 1
+            correctAnswer: Math.floor(Math.random() * 100) + 1,
+            userInput: ''
+        })
+    }
+
+    updateUserInput(event) {
+        this.setState( {
+            userInput: event.target.value
         })
     }
 
@@ -66,7 +78,7 @@ export default class Game extends Component {
         return (
         <div>
             <Header newGame={this.makeNewGame}/>
-            <GuessSection onGuess={this.onGuess} feedback={this.state.feedback}/>
+            <GuessSection onGuess={this.onGuess} feedback={this.state.feedback} userInput={this.state.userInput} updateUserInput={this.updateUserInput}/>
             <GuessCount count={this.state.guess.length} />
             <GuessList guesses={this.state.guess} />
         </div>
